@@ -1,5 +1,8 @@
 .DEFAULT_GOAL := help
 
+run-dev: ## Run the dev environment of the API
+	@flask run --debug
+
 test: ## Run all tests and generate coverage report
 	@coverage run -m unittest
 
