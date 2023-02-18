@@ -1,13 +1,16 @@
 from flaskr import db
+import bcrypt
 
 
 class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
     host = db.Column(db.String, nullable=False)
 
-    def __init__(self, username, host):
+    def __init__(self, username, password, host):
         self.username = username
+        self.password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt(12))
         self.host = host
 
     def serialize(self):

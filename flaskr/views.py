@@ -23,11 +23,14 @@ class RegisterAPI(Resource):
 
         if 'username' not in json_data:
             return {"message": "The client provided can't be registered! A client requires a username"}
+        if 'password' not in json_data:
+            return {"message": "The client provided can't be registered! A client requires a password"}
         if 'host' not in json_data:
             return {"message": "The client provided can't be registered! A client requires a host"}
 
         client = Client(
             username=json_data['username'],
+            password=json_data['password'],
             host=json_data['host']
         )
         db.session.add(client)
