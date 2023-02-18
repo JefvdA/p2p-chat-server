@@ -16,6 +16,21 @@ class ClientAPI(Resource):
         client = Client.query.filter_by(username=username).first()
         return jsonify(client.serialize())
 
+    def delete(self, username):
+        client = Client.query.filter_by(username=username).first()
+        json_data = request.get_json(force=True)
+
+        if 'password' not in json_data:
+            return {"message": f"The client with username {username} can't be deleted! A password should be provided"}
+        password = json_data['password']
+
+        if not client.check_password(password):
+            return {"message": f"The client with username {username} can't be deleted! The password provided was wrong"}
+
+        db.session.delete(client)
+        db.session.commit()
+        return {"message": f"The client with username {username} was deleted!"}
+
 
 class RegisterAPI(Resource):
     def post(self):

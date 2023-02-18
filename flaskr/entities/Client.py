@@ -13,6 +13,9 @@ class Client(db.Model):
         self.password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt(12))
         self.host = host
 
+    def check_password(self, password):
+        return bcrypt.checkpw(password.encode('utf8'), self.password)
+
     def serialize(self):
         """Return object data in easily serializable format"""
         return {
