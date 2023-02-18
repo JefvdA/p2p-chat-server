@@ -9,3 +9,11 @@ class Client(db.Model):
     def __init__(self, username, host):
         self.username = username
         self.host = host
+
+    def serialize(self):
+        """Return object data in easily serializable format"""
+        return {
+            'id': self.id,
+            'username': self.username,
+            'host': self.host
+        }

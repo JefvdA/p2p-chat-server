@@ -7,8 +7,8 @@ from flaskr.entities.Client import Client
 
 class ClientList(Resource):
     def get(self):
-        clients = db.session.execute(db.select(Client).order_by(Client.username))
-        return jsonify({'clients': [dict[client] for client in clients]})
+        clients = Client.query.all()
+        return jsonify([client.serialize() for client in clients])
 
 
 class Register(Resource):
