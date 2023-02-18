@@ -12,9 +12,6 @@ db.init_app(app)
 
 from flaskr.entities.Client import Client
 
-with app.app_context():
-    db.create_all()
-
 api = Api(app)
 
 from flaskr import views
