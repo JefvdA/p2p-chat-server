@@ -1,11 +1,8 @@
-from flask import jsonify
+from flask import jsonify, request
 
 from flaskr import api, db
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 from flaskr.entities.Client import Client
-
-parser = reqparse.RequestParser()
-parser.add_argument('client')
 
 
 class ClientList(Resource):
@@ -16,17 +13,21 @@ class ClientList(Resource):
 
 class Register(Resource):
     def post(self):
-        args = parser.parse_args()
-        client = args['client']
+        json_data = request.get_json(force=True)
 
-        if 'username' not in client:
+        if 'username' not in json_data:
             return {"message": "The client provided can't be registered! A client requires a username"}
-        if 'host' not in client:
+        if 'host' not in json_data:
             return {"message": "The client provided can't be registered! A client requires a host"}
 
-        print(client)
+        client = Client(
+            username=json_data['username'],
+            host=json_data['host']
+        )
+        db.session.add(client)
+        db.session.commit()
 
-        return {"message": "ok"}, 201
+        return {"message": f"Created a new client with username {client.username}"}, 201
 
 
 api.add_resource(ClientList, '/')
