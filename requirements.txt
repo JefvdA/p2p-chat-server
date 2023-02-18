@@ -2,4 +2,5 @@ coverage
 flask
 flask-restful
 flask-sqlalchemy
+flask-migrate
 bcrypt
