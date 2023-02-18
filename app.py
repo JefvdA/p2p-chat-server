@@ -1,6 +1,4 @@
-from flaskr import app, db
+from flaskr import app
 
 if __name__ == '__main__':
     app.run()
-    db.init_app(app)
-    db.create_all()
