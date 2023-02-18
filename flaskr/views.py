@@ -11,6 +11,12 @@ class ClientListAPI(Resource):
         return jsonify([client.serialize() for client in clients])
 
 
+class ClientAPI(Resource):
+    def get(self, username):
+        client = Client.query.filter_by(username=username).first()
+        return jsonify(client.serialize())
+
+
 class RegisterAPI(Resource):
     def post(self):
         json_data = request.get_json(force=True)
@@ -31,4 +37,5 @@ class RegisterAPI(Resource):
 
 
 api.add_resource(ClientListAPI, '/clients')
+api.add_resource(ClientAPI, '/clients/<username>')
 api.add_resource(RegisterAPI, '/register')
