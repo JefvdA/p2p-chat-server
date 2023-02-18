@@ -5,13 +5,13 @@ from flask_restful import Resource
 from flaskr.entities.Client import Client
 
 
-class ClientList(Resource):
+class ClientListAPI(Resource):
     def get(self):
         clients = Client.query.all()
         return jsonify([client.serialize() for client in clients])
 
 
-class Register(Resource):
+class RegisterAPI(Resource):
     def post(self):
         json_data = request.get_json(force=True)
 
@@ -30,5 +30,5 @@ class Register(Resource):
         return {"message": f"Created a new client with username {client.username}"}, 201
 
 
-api.add_resource(ClientList, '/')
-api.add_resource(Register, '/register')
+api.add_resource(ClientListAPI, '/clients')
+api.add_resource(RegisterAPI, '/register')
