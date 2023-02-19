@@ -1,8 +1,7 @@
 # P2P chat server
 This project is a component in a larger project, a peer-to-peer chat application. 
 As it's a peer-to-peer application, there is no server needed for chatting. 
-This server handles "registering" clients, so that the actual application 
-[NON-EXISTENT FOR NOW] is able to retrieve a list of all clients, 
+This server handles "registering" clients, so that the actual [application](https://github.com/JefvdA/p2p-chat-terminal-client) is able to retrieve a list of all clients, 
 and their ips to chat with.
 
 ## Installation
